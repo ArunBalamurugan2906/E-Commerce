@@ -49,6 +49,13 @@ const ProductDetails = () => {
       </center>
     );
   }
+    if (error) {
+    return (
+      <center>
+        <h3>{error}</h3>
+      </center>
+    );
+  }
 
   let handleDelete = (id) => {
     axios.delete(`http://localhost:5000/product/${id}`).then(() => {
