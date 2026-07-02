@@ -11,16 +11,5 @@
 .product {
   flex-grow: 1;
 }
-.div input{
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  padding: 10px 10px 10px;
-}
-.div label{
-   font-family:'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-   font-size: 20px;
-}
-.div button{
-  font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;
-  padding: 10px 10px 10px;
-}
+
 
