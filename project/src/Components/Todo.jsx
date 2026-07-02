@@ -1,5 +1,5 @@
-import React, { use, useState } from "react";
-import { Button } from "@mui/material";
+import React, { useState } from "react";
+import { Button, Card, Form, Container, InputGroup } from "react-bootstrap";
 import { FaRegEdit } from "react-icons/fa";
 import { MdDeleteForever } from "react-icons/md";
 
@@ -9,9 +9,11 @@ const Todo = () => {
     { id: 2, label: "JavaScript", checked: true },
     { id: 3, label: "React.Js", checked: false },
   ]);
+
   let [newItems, setNewItems] = useState("");
   let [isEditing, setEditing] = useState(false);
   let [currentElement, setCurrentElement] = useState(null);
+
   let handleChange = (id) => {
     let handleCheck = items.map((item) => {
       return item.id === id ? { ...item, checked: !item.checked } : item;
@@ -27,6 +29,7 @@ const Todo = () => {
       setItems(editSave);
       setCurrentElement(null);
       setNewItems("");
+      setEditing(false);
     } else {
       setItems([
         ...items,
@@ -42,6 +45,7 @@ const Todo = () => {
       .map((item, index) => {
         return { ...item, id: index + 1 };
       });
+
     setItems(itemDelete);
   };
 
@@ -51,50 +55,83 @@ const Todo = () => {
     setEditing(true);
     setCurrentElement(id);
   };
+
   return (
-    <center>
-      <div className="div">
-        <input
-          type="text"
-          placeholder="Enter Your Items"
-          value={newItems}
-          onChange={(e) => {
-            setNewItems(e.target.value);
-          }}
-        />
-        <button onClick={handleAddandSave}>{isEditing ? "Save" : "ADD"}</button>
-        <ul style={{ listStyle: "none" }}>
+    <Container className="d-flex justify-content-center mt-5">
+      <Card className="shadow p-4" style={{ width: "500px" }}>
+        <Card.Title className="text-center mb-4">
+          <h2>Todo List</h2>
+        </Card.Title>
+
+        <InputGroup className="mb-3">
+          <Form.Control
+            type="text"
+            placeholder="Enter Your Items"
+            value={newItems}
+            onChange={(e) => {
+              setNewItems(e.target.value);
+            }}
+          />
+          <Button variant="primary" onClick={handleAddandSave}>
+            {isEditing ? "Save" : "ADD"}
+          </Button>
+        </InputGroup>
+
+        <ul className="list-group">
           {items.map((item) => {
             return (
-              <li key={item.id}>
-                <input
-                  type="checkbox"
-                  checked={item.checked}
-                  onChange={() => {
-                    handleChange(item.id);
-                  }}
-                />
-                <label>{item.label}</label>
-                <Button
-                  onClick={() => {
-                    handleEdit(item.id);
-                  }}
-                >
-                 <FaRegEdit/>
-                </Button>
-                <Button
-                  onClick={() => {
-                    handleDelete(item.id);
-                  }}
-                >
-                 <MdDeleteForever/>
-                </Button>
+              <li
+                key={item.id}
+                className="list-group-item d-flex justify-content-between align-items-center"
+              >
+                <div className="d-flex align-items-center">
+                  <Form.Check
+                    type="checkbox"
+                    checked={item.checked}
+                    onChange={() => {
+                      handleChange(item.id);
+                    }}
+                    className="me-2"
+                  />
+
+                  <label
+                    style={{
+                      textDecoration: item.checked ? "line-through" : "none",
+                    }}
+                  >
+                    {item.label}
+                  </label>
+                </div>
+
+                <div>
+                  <Button
+                    variant="warning"
+                    size="sm"
+                    className="me-2"
+                    onClick={() => {
+                      handleEdit(item.id);
+                    }}
+                  >
+                    <FaRegEdit />
+                  </Button>
+
+                  <Button
+                    variant="danger"
+                    size="sm"
+                    onClick={() => {
+                      handleDelete(item.id);
+                    }}
+                  >
+                    <MdDeleteForever />
+                  </Button>
+                </div>
               </li>
             );
           })}
         </ul>
-      </div>
-    </center>
+      </Card>
+    </Container>
   );
 };
+
 export default Todo;
