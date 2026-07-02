@@ -11,10 +11,8 @@ function useFetch(url) {
       try {
         let response = await axois.get(url);
         setProducts(response.data);
-      } catch {
-        (error) => {
-          setError(error.message);
-        };
+      } catch (error) {
+        setError("Network Error! Please start JSON Server.");
       } finally {
         setLoading(false);
       }
